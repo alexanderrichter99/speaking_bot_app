@@ -18,33 +18,30 @@ class ConnectionPage extends StatelessWidget {
       print("BL Name: $value");
     });
 
-    return ChangeNotifierProvider(
-      create: (context) => CoreBluetoothState(),
-      child: Scaffold(
-        floatingActionButton: const MySuperFab(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const MsgView(),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Bluetooth Demo App",
-                        style: Theme.of(context).textTheme.headline5),
-                    const SizedBox(height: 8),
-                    const BluetoothDeviceInformationView(),
-                    const SizedBox(height: 8),
-                    const BluetoothDevicesDiscoveryPage(),
-                    const ChatView(),
-                  ],
-                ),
+    return Scaffold(
+      floatingActionButton: const MySuperFab(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const MsgView(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Bluetooth Demo App",
+                      style: Theme.of(context).textTheme.headline5),
+                  const SizedBox(height: 8),
+                  const BluetoothDeviceInformationView(),
+                  const SizedBox(height: 8),
+                  const BluetoothDevicesDiscoveryPage(),
+                  const ChatView(),
+                ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

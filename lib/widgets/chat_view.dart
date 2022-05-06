@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+// ignore: unused_import
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:speaking_bot_app/core/routes/routes.dart';
 import 'package:speaking_bot_app/states/core_bluetooth_state.dart';
 
 class ChatView extends StatelessWidget {
@@ -26,9 +28,9 @@ class ChatView extends StatelessWidget {
               ),
               onPressed: () {
                 DateTime time = DateTime.now();
-                bluetoothEnabledState.currentConnection?.output.add(ascii.encode(
-                    "Eile at ${time.hour}:${time.minute}:${time.second}!\n"));
-                //Navigator.of(context).pushNamed(Routes.home);
+                // bluetoothEnabledState.currentConnection?.output.add(ascii.encode(
+                //     "Eile at ${time.hour}:${time.minute}:${time.second}!\n"));
+                Navigator.of(context).pushNamed(Routes.home);
               },
             ),
           ),
