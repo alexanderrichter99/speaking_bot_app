@@ -24,7 +24,7 @@ class ChatView extends StatelessWidget {
             child: ElevatedButton(
               child: Padding(
                 padding: EdgeInsets.all(8),
-                child: Text("Send a Text", style: TextStyle(fontSize: 30)),
+                child: Text("Use Cases", style: TextStyle(fontSize: 30)),
               ),
               onPressed: () {
                 DateTime time = DateTime.now();

@@ -13,20 +13,20 @@ class Slide {
 final slideList = [
   Slide(
     imageUrl: 'assets/images/car.jpg',
-    title: 'Smarphone Companion APP',
+    title: 'Smartphone Companion APP',
     description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus tincidunt bibendum. Maecenas eu viverra orci. Duis diam leo, porta at justo vitae, euismod aliquam nulla.',
+        'Das Ziel der Smartphone Companion App ist es, die Labelung von Situationen zu unterstützen sowie zu automatisieren, indem sie Eingaben bzw. Feedback vom Fahrer einholt.',
   ),
   Slide(
     imageUrl: 'assets/images/presentation.jpg',
-    title: 'Information',
+    title: 'Automatisierung der Daten',
     description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus tincidunt bibendum. Maecenas eu viverra orci. Duis diam leo, porta at justo vitae, euismod aliquam nulla.',
+        'Anstatt die Daten aufwendig manuell zu taggen, soll die App diesen Prozess automatisieren. Anschließend soll die App die Daten an den Arduino senden.',
   ),
   Slide(
     imageUrl: 'assets/images/information.jpg',
-    title: 'Information',
+    title: 'Bluetooth Verbindung',
     description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus tincidunt bibendum. Maecenas eu viverra orci. Duis diam leo, porta at justo vitae, euismod aliquam nulla.',
+        'Um demnach Daten an den Arduino senden zu können, muss der Fahrer eine Bluetooth-Verbindung mit dem HC-05 Modul des Arduinos aufbauen.',
   ),
 ];

@@ -30,7 +30,7 @@ class ConnectionPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Bluetooth Demo App",
+                  Text("Smartphone Companion App",
                       style: Theme.of(context).textTheme.headline5),
                   const SizedBox(height: 8),
                   const BluetoothDeviceInformationView(),
