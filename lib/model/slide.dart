@@ -13,7 +13,7 @@ class Slide {
 final slideList = [
   Slide(
     imageUrl: 'assets/images/car.jpg',
-    title: 'Smartphone Companion APP',
+    title: 'Smartphone Companion App',
     description:
         'Das Ziel der Smartphone Companion App ist es, die Labelung von Situationen zu unterstützen sowie zu automatisieren, indem sie Eingaben bzw. Feedback vom Fahrer einholt.',
   ),

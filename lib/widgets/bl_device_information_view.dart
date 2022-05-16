@@ -40,7 +40,7 @@ class _BluetoothDeviceInformationViewState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Dein Gerät heißt $_name",
+        Text("Dein Gerät lautet $_name",
             style: Theme.of(context).textTheme.subtitle1),
         Text("mit der Adresse $_adress",
             style: Theme.of(context).textTheme.subtitle1),

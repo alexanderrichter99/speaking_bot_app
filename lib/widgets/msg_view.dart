@@ -15,39 +15,37 @@ class MsgView extends StatelessWidget {
       builder: (context, value, child) {
         Color bgColor = Colors.black;
         String msgText = "";
-
         if (value.isTryingToConnect) {
           bgColor = Colors.green.shade200;
           msgText =
-              "Trying to connect with ${value.nameOfCurrentlyConnectedDeviceName}";
+              "Verbinde mit ${value.nameOfCurrentlyConnectedDeviceName} . . .";
         } else if (value.state == BluetoothState.STATE_ON &&
             value.currentConnection != null) {
           bgColor = Colors.green.shade400;
-          msgText =
-              "Connected with ${value.nameOfCurrentlyConnectedDeviceName}";
+          msgText = "Verbunden mit ${value.nameOfCurrentlyConnectedDeviceName}";
         } else if (value.state == BluetoothState.STATE_ON) {
-          bgColor = Colors.yellow.shade800;
-          msgText = "Bluetooth is on but not connected";
+          bgColor = Colors.blue.shade400;
+          msgText = "Bluetooth ist aktiviert";
         } else if (value.state == BluetoothState.STATE_OFF) {
           bgColor = Colors.red.shade400;
-          msgText = "Bluetooth is off";
+          msgText = "Bluetooth ist deaktiviert";
         } else if (value.state == BluetoothState.STATE_TURNING_ON) {
           bgColor = Colors.yellow.shade600;
-          msgText = "Bluetooth is turning on";
+          msgText = "Bluetooth wird aktiviert";
         } else if (value.state == BluetoothState.STATE_TURNING_OFF) {
           bgColor = Colors.red.shade300;
-          msgText = "Bluetooth is turning off";
+          msgText = "Bluetooth wird deaktiviert";
         } else {
           bgColor = Colors.blue.shade400;
-          msgText = "Bluetooth state is unknown";
+          msgText = "Bluetooth Status ist unbekannt";
         }
 
         return Container(
-            height: 100,
+            height: 60,
             color: bgColor,
             child: Column(
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Expanded(
                   child: Center(
                     child: Padding(
@@ -55,10 +53,11 @@ class MsgView extends StatelessWidget {
                       child: AutoSizeText(
                         msgText,
                         maxLines: 1,
-                        minFontSize: 25,
+                        minFontSize: 0,
                         maxFontSize: 100,
                         overflow: TextOverflow.fade,
                         softWrap: false,
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
                   ),

@@ -19,10 +19,12 @@ class CoreBluetoothState extends ChangeNotifier {
   BluetoothConnection? get currentConnection => _bluetoothConnection;
 
   String? _addressOfCurrentlyConnectedDevice;
-  String? get addressOfCurrentlyConnectedDeviceName => _addressOfCurrentlyConnectedDevice;
+  String? get addressOfCurrentlyConnectedDeviceName =>
+      _addressOfCurrentlyConnectedDevice;
 
   String? _nameOfCurrentlyConnectedDevice;
-  String? get nameOfCurrentlyConnectedDeviceName => _nameOfCurrentlyConnectedDevice;
+  String? get nameOfCurrentlyConnectedDeviceName =>
+      _nameOfCurrentlyConnectedDevice;
 
   // ----------------------------------------------------------------------------------- //
   // ----------------------------------------------------------------------------------- //
@@ -38,7 +40,9 @@ class CoreBluetoothState extends ChangeNotifier {
     FlutterBluetoothSerial.instance.state.then(onBluetoothStateChange);
 
     // das passiert NACH dem ersten mal (listen()), es ist ein stream
-    FlutterBluetoothSerial.instance.onStateChanged().listen(onBluetoothStateChange);
+    FlutterBluetoothSerial.instance
+        .onStateChanged()
+        .listen(onBluetoothStateChange);
   }
 
   // ----------------------------------------------------------------------------------- //

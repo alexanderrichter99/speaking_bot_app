@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => CoreBluetoothState(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Speaking Bot App',
         theme: AppColors.getTheme,
         initialRoute: Routes.tutorial,

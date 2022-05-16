@@ -1,4 +1,3 @@
-import 'package:speaking_bot_app/states/core_bluetooth_state.dart';
 import 'package:speaking_bot_app/widgets/bl_device_information_view.dart';
 import 'package:speaking_bot_app/widgets/chat_view.dart';
 import 'package:speaking_bot_app/widgets/discovery_page.dart';
@@ -6,7 +5,6 @@ import 'package:speaking_bot_app/widgets/msg_view.dart';
 import 'package:speaking_bot_app/widgets/my_super_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'package:provider/provider.dart';
 
 class ConnectionPage extends StatelessWidget {
   const ConnectionPage({Key? key}) : super(key: key);

@@ -23,7 +23,10 @@ class BluetoothDevicesDiscoveryPage extends StatelessWidget {
         if (bluetoothEnabledState.isTryingToConnect) {
           return const Expanded(
               child: Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.grey,
+              strokeWidth: 5,
+            ),
           ));
         }
 
@@ -36,44 +39,52 @@ class BluetoothDevicesDiscoveryPage extends StatelessWidget {
               SizedBox(height: 8),
               Expanded(
                 child: MediaQuery.removePadding(
-                  removeTop: true,
-                  context: context,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: bluetoothEnabledState.devices.length,
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      //print(_devices[index].name ?? "rr");
-                      String deName =
-                          bluetoothEnabledState.devices[index].name ?? "";
-                      String deAddress =
-                          bluetoothEnabledState.devices[index].address;
-                      return Card(
-                        child: ListTile(
-                          title: Text(deName),
-                          subtitle: Text(deAddress),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.arrow_forward_ios),
-                            onPressed: null,
-                          ),
-                          onTap: () async {
-                            bluetoothEnabledState.tryingToConnect(deName);
-                            try {
-                              BluetoothConnection bluetoothConnection =
-                                  await BluetoothConnection.toAddress(
-                                      deAddress);
-                              bluetoothEnabledState
-                                  .successfullyEstablishedConnectionWithDevice(
-                                      bluetoothConnection, deName, deAddress);
-                            } catch (_) {
-                              bluetoothEnabledState.failedToConnect();
-                            }
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                    removeTop: true,
+                    context: context,
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: ListView.builder(
+                        reverse: true,
+                        shrinkWrap: true,
+                        itemCount: bluetoothEnabledState.devices.length,
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          //print(_devices[index].name ?? "rr");
+                          String deName =
+                              bluetoothEnabledState.devices[index].name ?? "";
+                          String deAddress =
+                              bluetoothEnabledState.devices[index].address;
+                          return Card(
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.bluetooth,
+                              ),
+                              title: Text(deName),
+                              subtitle: Text(deAddress),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.arrow_forward_ios),
+                                onPressed: null,
+                              ),
+                              onTap: () async {
+                                bluetoothEnabledState.tryingToConnect(deName);
+                                try {
+                                  BluetoothConnection bluetoothConnection =
+                                      await BluetoothConnection.toAddress(
+                                          deAddress);
+                                  bluetoothEnabledState
+                                      .successfullyEstablishedConnectionWithDevice(
+                                          bluetoothConnection,
+                                          deName,
+                                          deAddress);
+                                } catch (_) {
+                                  bluetoothEnabledState.failedToConnect();
+                                }
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    )),
               )
             ],
           ),

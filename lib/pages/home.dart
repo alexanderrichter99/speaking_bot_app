@@ -1,12 +1,10 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:speaking_bot_app/states/core_bluetooth_state.dart';
-
-import '../widgets/msg_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,9 +22,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("FAB Button Example"),
+        backgroundColor: Colors.blue,
+      ),
       body: Column(
         children: [
-          const MsgView(),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16),
