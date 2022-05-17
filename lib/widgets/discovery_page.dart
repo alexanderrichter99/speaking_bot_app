@@ -56,9 +56,11 @@ class BluetoothDevicesDiscoveryPage extends StatelessWidget {
                               bluetoothEnabledState.devices[index].address;
                           return Card(
                             child: ListTile(
-                              leading: Icon(
-                                Icons.bluetooth,
-                              ),
+                              leading: SizedBox(
+                                  height: double.infinity,
+                                  child: Icon(
+                                    Icons.bluetooth,
+                                  )),
                               title: Text(deName),
                               subtitle: Text(deAddress),
                               trailing: IconButton(

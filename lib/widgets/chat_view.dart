@@ -30,8 +30,9 @@ class ChatView extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Card(
                       child: ListTile(
-                          leading: Icon(
-                            Icons.directions_car,
+                          leading: SizedBox(
+                            height: double.infinity,
+                            child: Icon(Icons.directions_car),
                           ),
                           title: Text("Use Cases"),
                           subtitle: Text("zur Eilebestimmung"),

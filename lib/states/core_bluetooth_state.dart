@@ -34,6 +34,7 @@ class CoreBluetoothState extends ChangeNotifier {
   // Das bl zeug hängt so zusammen dass viele widgets gleichzeig gändert werden sollen
   // deshalb hält diese Provider auch viele States :)
   CoreBluetoothState() {
+    // ignore: avoid_print
     print("init bluetooth provider ....");
 
     // Das hier passiert nur einmal am anfang (then()) und dann nie wieder

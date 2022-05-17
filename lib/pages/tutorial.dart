@@ -21,7 +21,7 @@ class _TutorialPageState extends State<TutorialPage> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 10), (Timer timer) {
       if (_currentPage < 2) {
         _currentPage++;
       } else {
