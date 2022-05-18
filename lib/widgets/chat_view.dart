@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:speaking_bot_app/core/routes/routes.dart';
 import 'package:speaking_bot_app/states/core_bluetooth_state.dart';
+import 'package:speaking_bot_app/widgets/service_widget.dart';
 
 class ChatView extends StatelessWidget {
   const ChatView({Key? key}) : super(key: key);
@@ -42,6 +43,7 @@ class ChatView extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.of(context).pushNamed(Routes.home);
+                            ServiceWidget.of(context)?.coreService.beginTrip();
                           }),
                     );
                   },

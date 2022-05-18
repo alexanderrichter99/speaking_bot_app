@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:speaking_bot_app/widgets/service_widget.dart';
 
 import '../states/core_bluetooth_state.dart';
 
@@ -85,10 +86,13 @@ class _ToggleButtonManeuverState extends State<ToggleButtonManeuver> {
             ),
           ],
           onPressed: (int newIndex) {
+            bool isStartofManeuver = true;
+
             setState(() {
               for (int index = 0; index < isSelected.length; index++) {
                 if (index == newIndex) {
                   isSelected[index] = !isSelected[index];
+                  isStartofManeuver = isSelected[index];
                 } else {
                   isSelected[index] = false;
                 }
@@ -117,13 +121,19 @@ class _ToggleButtonManeuverState extends State<ToggleButtonManeuver> {
               maneuver = "Hohe Kurvengeschwindigkeit";
             }
 
+            if (isStartofManeuver) {
+              ServiceWidget.of(context)?.coreService.startManeuver(maneuver);
+            } else {
+              ServiceWidget.of(context)?.coreService.stopManeuver(maneuver);
+            }
+
             DateTime time = DateTime.now();
             Provider.of<CoreBluetoothState>(context, listen: false)
                 .currentConnection
                 ?.output
                 .add(ascii.encode(
                     "$maneuver at ${time.hour}:${time.minute}:${time.second}!\n"));
-            print(maneuver);
+            //print(maneuver);
           },
         ),
       );

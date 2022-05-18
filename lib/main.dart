@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:speaking_bot_app/core/res/color.dart';
 import 'package:speaking_bot_app/core/routes/routes.dart';
 import 'package:speaking_bot_app/states/core_bluetooth_state.dart';
+import 'package:speaking_bot_app/states/core_service.dart';
+import 'package:speaking_bot_app/widgets/service_widget.dart';
 
 void main() {
   // This makes the statusbar transparent
@@ -19,14 +21,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => CoreBluetoothState(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Speaking Bot App',
-        theme: AppColors.getTheme,
-        initialRoute: Routes.tutorial,
-        onGenerateRoute: RouterGenerator.generateRoutes,
+    return ServiceWidget(
+      coreService: CoreService(),
+      child: ChangeNotifierProvider(
+        create: (context) => CoreBluetoothState(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Speaking Bot App',
+          theme: AppColors.getTheme,
+          initialRoute: Routes.tutorial,
+          onGenerateRoute: RouterGenerator.generateRoutes,
+        ),
       ),
     );
   }
