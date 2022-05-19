@@ -43,7 +43,6 @@ class ChatView extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.of(context).pushNamed(Routes.home);
-                            ServiceWidget.of(context)?.coreService.beginTrip();
                           }),
                     );
                   },

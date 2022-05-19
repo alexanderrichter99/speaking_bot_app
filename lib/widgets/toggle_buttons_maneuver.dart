@@ -1,12 +1,7 @@
 // ignore_for_file: avoid_print
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:speaking_bot_app/widgets/service_widget.dart';
-
-import '../states/core_bluetooth_state.dart';
 
 class ToggleButtonManeuver extends StatefulWidget {
   const ToggleButtonManeuver({Key? key}) : super(key: key);
@@ -94,10 +89,37 @@ class _ToggleButtonManeuverState extends State<ToggleButtonManeuver> {
                   isSelected[index] = !isSelected[index];
                   isStartofManeuver = isSelected[index];
                 } else {
+                  if (isSelected[index]) {
+                    String maneuver = "";
+                    if (index == 0) {
+                      maneuver =
+                          "Starkes Beschleunigen nach Verschwinden des Vordermannes";
+                    } else if (index == 1) {
+                      maneuver = "Ueberholen mit ueberhoehter Geschwindigkeit";
+                    } else if (index == 2) {
+                      maneuver = "Kickdown";
+                    } else if (index == 3) {
+                      maneuver = "Spurpendeln";
+                    } else if (index == 4) {
+                      maneuver = "Spurwechseln";
+                    } else if (index == 5) {
+                      maneuver = "Anfahren nach Stillstand";
+                    } else if (index == 6) {
+                      maneuver = "Auffahren";
+                    } else if (index == 7) {
+                      maneuver = "Speedlimitreue";
+                    } else if (index == 8) {
+                      maneuver = "Hohe Kurvengeschwindigkeit";
+                    }
+                    ServiceWidget.of(context)
+                        ?.coreService
+                        .stopManeuver(context, maneuver);
+                  }
                   isSelected[index] = false;
                 }
               }
             });
+
             String maneuver = "";
 
             if (newIndex == 0) {
@@ -122,18 +144,14 @@ class _ToggleButtonManeuverState extends State<ToggleButtonManeuver> {
             }
 
             if (isStartofManeuver) {
-              ServiceWidget.of(context)?.coreService.startManeuver(maneuver);
+              ServiceWidget.of(context)
+                  ?.coreService
+                  .startManeuver(context, maneuver);
             } else {
-              ServiceWidget.of(context)?.coreService.stopManeuver(maneuver);
+              ServiceWidget.of(context)
+                  ?.coreService
+                  .stopManeuver(context, maneuver);
             }
-
-            DateTime time = DateTime.now();
-            Provider.of<CoreBluetoothState>(context, listen: false)
-                .currentConnection
-                ?.output
-                .add(ascii.encode(
-                    "$maneuver at ${time.hour}:${time.minute}:${time.second}!\n"));
-            //print(maneuver);
           },
         ),
       );

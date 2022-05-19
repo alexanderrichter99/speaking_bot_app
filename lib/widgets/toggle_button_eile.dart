@@ -1,10 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:speaking_bot_app/widgets/service_widget.dart';
-
-import '../states/core_bluetooth_state.dart';
 
 class ToggleButtonEile extends StatefulWidget {
   const ToggleButtonEile({Key? key}) : super(key: key);
@@ -46,13 +41,6 @@ class _ToggleButtonEileState extends State<ToggleButtonEile> {
 
             ServiceWidget.of(context)?.coreService.setEile =
                 newIndex == 0 ? true : false;
-
-            DateTime time = DateTime.now();
-            Provider.of<CoreBluetoothState>(context, listen: false)
-                .currentConnection
-                ?.output
-                .add(ascii.encode(
-                    "${newIndex == 0 ? "" : "Nicht in "} Eile at ${time.hour}:${time.minute}:${time.second}!\n"));
           },
         ),
       );
