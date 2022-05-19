@@ -63,6 +63,15 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.mic),
+        onPressed: () {},
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(height: 50.0),
+        color: Colors.blue.shade400,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

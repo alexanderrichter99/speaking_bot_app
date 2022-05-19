@@ -119,7 +119,7 @@ class _ToggleButtonManeuverState extends State<ToggleButtonManeuver> {
                   builder: (context) => AlertDialog(
                     title: const Text("Spurpendeln"),
                     content: const Text(
-                        "Definition: Häufiges 'Pendeln' in der eigenen Spur und beispielsweise einen Überholvorgang zu überprüfen oder SIcht auf den kommenden Streckenabschnitt zu erlangen.\n\nSignale:\n- Lenkwinkel\n- Abstand Vorderfahrer"),
+                        "Definition:\nHäufiges 'Pendeln' in der eigenen Spur, um beispielsweise einen Überholvorgang zu überprüfen oder SIcht auf den kommenden Streckenabschnitt zu erlangen.\n\nSignale:\n- Lenkwinkel\n- Abstand Vorderfahrer"),
                     actions: [
                       TextButton(
                         child: const Text("OK"),
