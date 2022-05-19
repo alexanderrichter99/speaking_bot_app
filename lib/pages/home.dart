@@ -22,6 +22,29 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Use Cases",
             style: TextStyle(fontSize: 20, color: Colors.white)),
         backgroundColor: Colors.blue.shade400,
+        actions: [
+          IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Was soll aufgezeichnet werden?"),
+                    content: const Text(
+                        "- Manöver in Eile\n- UND Manöver nicht in Eile"),
+                    actions: [
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.info,
+                color: Colors.white,
+              ))
+        ],
       ),
       body: Column(
         children: [

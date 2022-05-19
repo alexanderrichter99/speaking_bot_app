@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:speaking_bot_app/widgets/service_widget.dart';
@@ -31,53 +31,223 @@ class _ToggleButtonManeuverState extends State<ToggleButtonManeuver> {
           selectedColor: Colors.white,
           color: Colors.black,
           fillColor: Colors.blue.shade400,
-          children: const <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: Text(
-                  'Starkes Beschleunigen nach Verschwinden des Vordermannes',
-                  style: TextStyle(fontSize: 18),
-                  textAlign: TextAlign.center),
+          children: [
+            GestureDetector(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text(
+                    'Starkes Beschleunigen nach Verschwinden des Vordermannes',
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center),
+              ),
+              onDoubleTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text(
+                        "Starkes Beschleunigen nach Abbiegen / Spurwechsel (verschwinden) des Vordermanns (Drängeln)"),
+                    content: const Text(
+                        "Signale:\n- Abstand Vorderfahrzeug\n- Längsbeschleunigung"),
+                    actions: [
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: Text('Überholen mit überhöhter Geschwindigkeit',
-                  style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
+            GestureDetector(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text('Überholen mit überhöhter Geschwindigkeit',
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center),
+              ),
+              onDoubleTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title:
+                        const Text("Überholen mit überhöhter Geschwindigkeit"),
+                    content: const Text(
+                        "Signale:\n- Lenkwinkel\n- Längsbeschleunigung\n- Querbeschleunigung\n- Tatsächliche Geschwindigkeit\n- Geschwindigkeitsbegrenzung\n- Abstand Vorderfahrzeug"),
+                    actions: [
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: Text('Kickdown',
-                  style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
+            GestureDetector(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text('Kickdown',
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center),
+              ),
+              onDoubleTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Kickdown"),
+                    content: const Text("Signale:\n- Fahrpedalwinkel"),
+                    actions: [
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: Text('Spurpendeln',
-                  style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
+            GestureDetector(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text('Spurpendeln',
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center),
+              ),
+              onDoubleTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Spurpendeln"),
+                    content: const Text(
+                        "Definition: Häufiges 'Pendeln' in der eigenen Spur und beispielsweise einen Überholvorgang zu überprüfen oder SIcht auf den kommenden Streckenabschnitt zu erlangen.\n\nSignale:\n- Lenkwinkel\n- Abstand Vorderfahrer"),
+                    actions: [
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: Text('Spurwechseln',
-                  style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
+            GestureDetector(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text('Spurwechseln',
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center),
+              ),
+              onDoubleTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("(Häufiges) Spurwechseln"),
+                    content: const Text(
+                        "Signale:\n- Lenkwinkel\n- Längsbeschleunigung\n- Querbeschleunigung\n- Abstand Vorderfahrer"),
+                    actions: [
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: Text('Anfahren nach Stillstand',
-                  style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
+            GestureDetector(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text('Anfahren nach Stillstand',
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center),
+              ),
+              onDoubleTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Hastiges Anfahren nach Stillstand"),
+                    content: const Text(
+                        "Signale:\n- Längsbeschleunigung\n- Tatsächliche Geschwindigkeit\n\nSituation:\n- An der Ampel\n- Nach Abbiegen des Vordermanns"),
+                    actions: [
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: Text('Auffahren',
-                  style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
+            GestureDetector(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text('Auffahren',
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center),
+              ),
+              onDoubleTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Auffahren"),
+                    content: const Text(
+                        "Signale:\n- Abstand Vorderfahrzeug\n- Winkel Fahrpedal\n- Bremsdruck\n- Längsbeschleunigung"),
+                    actions: [
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: Text('Speedlimitreue',
-                  style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
+            GestureDetector(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text('Speedlimittreue',
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center),
+              ),
+              onDoubleTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Speedlimittreue"),
+                    content: const Text(
+                        "Signale:\n- Tatsächliche Geschwindigkeit\n- Erlaubte Geschwindigkeit"),
+                    actions: [
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: Text('Hohe Kurvengeschwindigkeit',
-                  style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
+            GestureDetector(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text('Hohe Kurvengeschwindigkeit',
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center),
+              ),
+              onDoubleTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Hohe Kurvengeschwindigkeit"),
+                    content: const Text("Lorem ipsum.."),
+                    actions: [
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
           ],
           onPressed: (int newIndex) {
