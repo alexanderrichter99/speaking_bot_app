@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:speaking_bot_app/model/maneuvers.dart';
 
 import 'core_bluetooth_state.dart';
 
@@ -21,27 +22,31 @@ class CoreService {
     //print("switch $eile");
   }
 
-// TODO speichere in die File
-  void startManeuver(BuildContext context, String maneuver) {
+// speichere in die File
+  void startManeuver(BuildContext context, int id) {
     DateTime time = DateTime.now();
     Provider.of<CoreBluetoothState>(context, listen: false)
         .currentConnection
         ?.output
-        .add(ascii.encode(
-            "Starte $maneuver${eile ? "" : " nicht"} in Eile: ${time.hour}:${time.minute}:${time.second}!\n"));
+        .add(ascii.encode("$id ${eile ? "0" : "1"} ST\n"
+            //"Starte $id${eile ? "" : " nicht"} in Eile: ${time.hour}:${time.minute}:${time.second}!\n")
+            ));
 
-    //print("Starte $maneuver ${eile ? "" : "nicht"} in Eile");
+    print(
+        "Starte ${maneuverList.elementAt(id).title} ${eile ? "" : "nicht "}in Eile: ${time.hour}:${time.minute}:${time.second}!");
   }
 
-// TODO speichere das Ende des Manövers in der File
-  void stopManeuver(BuildContext context, String maneuver) {
+// speichere das Ende des Manövers in der File
+  void stopManeuver(BuildContext context, int id) {
     DateTime time = DateTime.now();
     Provider.of<CoreBluetoothState>(context, listen: false)
         .currentConnection
         ?.output
-        .add(ascii.encode(
-            "Beende $maneuver${eile ? "" : " nicht"} in Eile: ${time.hour}:${time.minute}:${time.second}!\n"));
+        .add(ascii.encode("$id ${eile ? "0" : "1"} SP\n"
+            //"Beende $id${eile ? "" : " nicht"} in Eile: ${time.hour}:${time.minute}:${time.second}!\n"
+            ));
 
-    //print("Beende $maneuver ${eile ? "" : "nicht"} in Eile");
+    print(
+        "Beende ${maneuverList.elementAt(id).title} ${eile ? "" : "nicht "}in Eile: ${time.hour}:${time.minute}:${time.second}!");
   }
 }
