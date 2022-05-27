@@ -9,10 +9,12 @@ import 'package:speaking_bot_app/model/maneuvers.dart';
 import 'core_bluetooth_state.dart';
 
 class CoreService {
-  bool eile = false;
+  bool _eile = false;
+
+  get eile => _eile;
 
   set setEile(bool eile) {
-    this.eile = eile;
+    _eile = eile;
 
     // Provider.of<CoreBluetoothState>(context, listen: false)
     //     .currentConnection
@@ -28,12 +30,12 @@ class CoreService {
     Provider.of<CoreBluetoothState>(context, listen: false)
         .currentConnection
         ?.output
-        .add(ascii.encode("$id ${eile ? "0" : "1"} ST\n"
+        .add(ascii.encode("$id ${_eile ? "0" : "1"} ST\n"
             //"Starte $id${eile ? "" : " nicht"} in Eile: ${time.hour}:${time.minute}:${time.second}!\n")
             ));
 
     print(
-        "Starte ${maneuverList.elementAt(id).title} ${eile ? "" : "nicht "}in Eile: ${time.hour}:${time.minute}:${time.second}!");
+        "Starte ${maneuverList.elementAt(id).title} ${_eile ? "" : "nicht "}in Eile: ${time.hour}:${time.minute}:${time.second}!");
   }
 
 // speichere das Ende des Manövers in der File
@@ -42,11 +44,11 @@ class CoreService {
     Provider.of<CoreBluetoothState>(context, listen: false)
         .currentConnection
         ?.output
-        .add(ascii.encode("$id ${eile ? "0" : "1"} SP\n"
+        .add(ascii.encode("$id ${_eile ? "0" : "1"} SP\n"
             //"Beende $id${eile ? "" : " nicht"} in Eile: ${time.hour}:${time.minute}:${time.second}!\n"
             ));
 
     print(
-        "Beende ${maneuverList.elementAt(id).title} ${eile ? "" : "nicht "}in Eile: ${time.hour}:${time.minute}:${time.second}!");
+        "Beende ${maneuverList.elementAt(id).title} ${_eile ? "" : "nicht "}in Eile: ${time.hour}:${time.minute}:${time.second}!");
   }
 }

@@ -84,11 +84,12 @@ class _ToggleButtonManeuverState extends State<ToggleButtonManeuver> {
 
             if (isStartofManeuver) {
               ServiceWidget.of(context)?.coreService.startManeuver(context, id);
-              Provider.of<ManeuverState>(context, listen: false).ongoing = true;
+              Provider.of<ManeuverState>(context, listen: false)
+                  .isOngoing(true);
             } else {
               ServiceWidget.of(context)?.coreService.stopManeuver(context, id);
-              Provider.of<ManeuverState>(context, listen: false).ongoing =
-                  false;
+              Provider.of<ManeuverState>(context, listen: false)
+                  .isOngoing(false);
             }
           },
         ),

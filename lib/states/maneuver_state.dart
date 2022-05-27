@@ -1,11 +1,13 @@
 import 'package:flutter/foundation.dart';
 
 class ManeuverState extends ChangeNotifier {
-  bool ongoing = false;
+  bool _ongoing = false;
+
+  get ongoing => _ongoing;
 
   void isOngoing(bool state) {
-    ongoing = state;
-    notifyListeners();
     print("Maneuver is ongoing: " + state.toString());
+    _ongoing = state;
+    notifyListeners();
   }
 }
