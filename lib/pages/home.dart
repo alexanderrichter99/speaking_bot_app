@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:speaking_bot_app/states/core_service.dart';
 import 'package:speaking_bot_app/states/maneuver_state.dart';
 import 'package:speaking_bot_app/widgets/service_widget.dart';
 import 'package:speaking_bot_app/widgets/toggle_button_eile.dart';
@@ -14,11 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<bool> isSelectedEile = [false];
-  final List<bool> isSelectedUeberholen = [false];
-  final List<bool> isSelectedKickdown = [false];
-  final List<bool> isSelectedAuffahren = [false];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

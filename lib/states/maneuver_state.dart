@@ -6,7 +6,6 @@ class ManeuverState extends ChangeNotifier {
   get ongoing => _ongoing;
 
   void isOngoing(bool state) {
-    print("Maneuver is ongoing: " + state.toString());
     _ongoing = state;
     notifyListeners();
   }
