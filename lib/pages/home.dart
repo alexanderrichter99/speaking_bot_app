@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:speaking_bot_app/states/maneuver_state.dart';
+import 'package:speaking_bot_app/widgets/micro_dialogflow_input.dart';
 import 'package:speaking_bot_app/widgets/service_widget.dart';
 import 'package:speaking_bot_app/widgets/toggle_button_eile.dart';
 import 'package:speaking_bot_app/widgets/toggle_buttons_maneuver.dart';
@@ -72,7 +75,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.mic),
+        child: MicroDialogflowInput(),
         onPressed: () {},
       ),
       bottomNavigationBar: BottomAppBar(

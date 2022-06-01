@@ -16,7 +16,7 @@ final maneuverList = [
   Maneuvers(
     id: 0,
     longTitle:
-        'Starkes Beschleunigen nach Abbiegen / Spurwechsel (verschwinden) des Vordermanns (Drängeln)',
+        'Starkes Beschleunigen nach Abbiegen / Spurwechsel (Verschwinden) des Vordermannes (Drängeln)',
     title: 'Starkes Beschleunigen nach Verschwinden des Vordermannes',
     description: 'Signale:\n- Abstand Vorderfahrzeug\n- Längsbeschleunigung',
   ),
