@@ -60,21 +60,28 @@ class _ToggleButtonManeuverState extends State<ToggleButtonManeuver> {
             );
           }).toList(),
           onPressed: (int newIndex) {
+            // daran erkenn wir ob start oder nicht
             bool isStartofManeuver = true;
 
             setState(() {
               for (int index = 0; index < isSelected.length; index++) {
+                // auf gleichen Button geklickt => button wird entdrückt
                 if (index == newIndex) {
+                  // button entdrückt
                   isSelected[index] = !isSelected[index];
+                  // maneuver vorbei => false
                   isStartofManeuver = isSelected[index];
                 } else {
+                  // anderer button gedrückt
                   if (isSelected[index]) {
                     int id = maneuverList.elementAt(index).id;
 
+                    // beende zuvor laufendes maneuver, falls direkt ein neues maneuver gestartet worden ist
                     ServiceWidget.of(context)
                         ?.coreService
                         .stopManeuver(context, id);
                   }
+                  // nur auf button soll man drücken
                   isSelected[index] = false;
                 }
               }
