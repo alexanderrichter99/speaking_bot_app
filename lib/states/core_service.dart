@@ -15,13 +15,6 @@ class CoreService {
 
   set setEile(bool eile) {
     _eile = eile;
-
-    // Provider.of<CoreBluetoothState>(context, listen: false)
-    //     .currentConnection
-    //     ?.output
-    //     .add(ascii.encode(
-    //         "${newIndex == 0 ? "" : "Nicht in "} Eile at ${time.hour}:${time.minute}:${time.second}!\n"));
-    //print("switch $eile");
   }
 
   // speichere in die File

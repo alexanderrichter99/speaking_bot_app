@@ -10,37 +10,25 @@ class ToggleButtonEile extends StatefulWidget {
   _ToggleButtonEileState createState() => _ToggleButtonEileState();
 }
 
-class _ToggleButtonEileState extends State<ToggleButtonEile> {
-  List<bool> isSelected = [false, true];
-
-  Function(int newIndex)? onPressedConditionaly(bool ongoing) {
-    if (ongoing) {
-      return null;
-    } else {
-      return (int newIndex) {
-        setState(() {
-          for (int index = 0; index < isSelected.length; index++) {
-            if (index == newIndex) {
-              isSelected[index] = true;
-            } else {
-              isSelected[index] = false;
-            }
-          }
-        });
-
-        ServiceWidget.of(context)?.coreService.setEile =
-            newIndex == 0 ? true : false;
-      };
-    }
+Function(int newIndex)? onPressedConditionaly(
+    bool ongoing, BuildContext context, ManeuverState maneuverState) {
+  if (ongoing) {
+    return null;
+  } else {
+    return (int newIndex) {
+      maneuverState.setEile(newIndex, context);
+    };
   }
+}
 
+class _ToggleButtonEileState extends State<ToggleButtonEile> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ManeuverState>(
-      builder: (context, value, child) {
+      builder: (context, maneuverState, child) {
         return Center(
           child: ToggleButtons(
-            isSelected: isSelected,
+            isSelected: maneuverState.isSelectedEile,
             selectedColor: Colors.white,
             color: Colors.black,
             fillColor: Colors.red.shade600,
@@ -54,7 +42,8 @@ class _ToggleButtonEileState extends State<ToggleButtonEile> {
                 child: Text('Nicht in EILE', style: TextStyle(fontSize: 18)),
               ),
             ],
-            onPressed: onPressedConditionaly(value.ongoing),
+            onPressed: onPressedConditionaly(
+                maneuverState.ongoing, context, maneuverState),
           ),
         );
       },

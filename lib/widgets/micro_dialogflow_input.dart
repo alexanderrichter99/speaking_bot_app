@@ -6,11 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sound_stream/sound_stream.dart';
+import 'package:speaking_bot_app/states/maneuver_state.dart';
 
 // import Dialogflow
 import 'package:dialogflow_grpc/dialogflow_grpc.dart';
 import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2beta1/session.pb.dart';
-import 'package:speaking_bot_app/states/maneuver_state.dart';
 
 class MicroDialogflowInput extends StatefulWidget {
   const MicroDialogflowInput({Key? key}) : super(key: key);
@@ -93,8 +93,13 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
 
     // Create SpeechContexts
     // Create an audio InputConfig
-    var biasList =
-        SpeechContextV2Beta1(phrases: ['Auffahren', 'Manöver'], boost: 20.0);
+    var biasList = SpeechContextV2Beta1(phrases: [
+      'Auffahren',
+      'Manöver',
+      'Kickdown',
+      'Spurwechseln',
+      'Spurpendeln'
+    ], boost: 20.0);
 
     // See: https://cloud.google.com/dialogflow/es/docs/reference/rpc/google.cloud.dialogflow.v2#google.cloud.dialogflow.v2.InputAudioConfig
     var config = InputConfigV2beta1(
@@ -111,22 +116,39 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
     // Get the transcript and detectedIntent and show on screen
     responseStream.listen((data) async {
       // jedes einzelne Wort
-      print('transcript: ' + data.recognitionResult.transcript);
-
-      // Abfrage
-      print('query text: ' + data.queryResult.queryText);
 
       DetectIntentResponse dataBecker = await dialogflow.detectIntent(
           data.recognitionResult.transcript, 'de-DE');
 
-      // wenn ST dann werden Eile Buttons deaktiviert, falls SP dann wieder aktiviert
-      if (dataBecker.queryResult.fulfillmentText.contains("ST")) {
-        Provider.of<ManeuverState>(context, listen: false).isOngoing(true);
-      } else if (dataBecker.queryResult.fulfillmentText.contains("SP")) {
-        Provider.of<ManeuverState>(context, listen: false).isOngoing(false);
+      if (dataBecker.queryResult.fulfillmentText.contains("fallback")) {
+        return;
       }
 
+      print('transcript: ' + data.recognitionResult.transcript);
       print('fulfillmentText: ' + dataBecker.queryResult.fulfillmentText);
+
+      if (dataBecker.queryResult.fulfillmentText.length == 1) {
+        // bool eile =
+        //     dataBecker.queryResult.fulfillmentText == "0" ? true : false;
+        String eile = dataBecker.queryResult.fulfillmentText;
+        int intEile = int.parse(eile);
+        Provider.of<ManeuverState>(context, listen: false)
+            .setEile(intEile, context);
+        return;
+      }
+
+      String id = dataBecker.queryResult.fulfillmentText
+          .substring(4, dataBecker.queryResult.fulfillmentText.length);
+      int intId = int.parse(id);
+
+      // wenn ST dann werden Eile Buttons deaktiviert, falls SP dann wieder aktiviert
+      if (dataBecker.queryResult.fulfillmentText.contains("ST")) {
+        Provider.of<ManeuverState>(context, listen: false)
+            .setManeuver(intId, context, true);
+      } else if (dataBecker.queryResult.fulfillmentText.contains("SP")) {
+        Provider.of<ManeuverState>(context, listen: false)
+            .setManeuver(intId, context, false);
+      }
     }, onError: (e) {
       //print(e);
     }, onDone: () {
