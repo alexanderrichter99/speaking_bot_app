@@ -1,6 +1,7 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe, prefer_final_fields, curly_braces_in_flow_control_structures, unnecessary_string_interpolations, avoid_print, unused_local_variable
 
 import 'dart:async';
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -158,10 +159,21 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      iconSize: 30.0,
-      icon: Icon(_isRecording ? Icons.mic : Icons.mic_off),
-      onPressed: _isRecording ? stopStream : handleStream,
+    return AvatarGlow(
+      animate: _isRecording,
+      glowColor: Theme.of(context).primaryColor,
+      endRadius: 75.0,
+      duration: const Duration(milliseconds: 2000),
+      repeatPauseDuration: const Duration(milliseconds: 100),
+      repeat: true,
+      child: FloatingActionButton(
+        child: IconButton(
+          iconSize: 30.0,
+          icon: Icon(_isRecording ? Icons.mic : Icons.mic_off),
+          onPressed: _isRecording ? stopStream : handleStream,
+        ),
+        onPressed: () {},
+      ),
     );
   }
 }

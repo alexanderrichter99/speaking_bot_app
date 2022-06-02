@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:speaking_bot_app/states/maneuver_state.dart';
@@ -74,10 +75,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: MicroDialogflowInput(),
-        onPressed: () {},
-      ),
+      floatingActionButton: MicroDialogflowInput(),
       bottomNavigationBar: BottomAppBar(
         child: Container(height: 50.0),
         color: Colors.blue.shade400,

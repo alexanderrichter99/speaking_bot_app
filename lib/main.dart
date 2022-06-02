@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:speaking_bot_app/core/res/color.dart';
 import 'package:speaking_bot_app/core/routes/routes.dart';
 import 'package:speaking_bot_app/states/core_bluetooth_state.dart';
 import 'package:speaking_bot_app/states/core_service.dart';
@@ -34,9 +33,16 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Speaking Bot App',
-          theme: AppColors.getTheme,
           initialRoute: Routes.tutorial,
           onGenerateRoute: RouterGenerator.generateRoutes,
+          //theme: AppColors.getTheme,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            // This makes the visual density adapt to the platform that you run
+            // the app on. For desktop platforms, the controls will be smaller and
+            // closer together (more dense) than on mobile platforms.
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
         ),
       ),
     );
