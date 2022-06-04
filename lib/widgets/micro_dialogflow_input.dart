@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sound_stream/sound_stream.dart';
 import 'package:speaking_bot_app/states/maneuver_state.dart';
+import 'package:wakelock/wakelock.dart';
 
 // import Dialogflow
 import 'package:dialogflow_grpc/dialogflow_grpc.dart';
@@ -64,6 +65,7 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
   }
 
   void stopStream() async {
+    Wakelock.disable();
     await _recorder.stop();
     await _audioStreamSubscription.cancel();
     await _audioStream.close();
@@ -84,6 +86,7 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
   }
 
   void handleStream() async {
+    Wakelock.enable();
     _recorder.start();
 
     _audioStream = BehaviorSubject<List<int>>();
@@ -162,7 +165,7 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
     return AvatarGlow(
       animate: _isRecording,
       glowColor: Theme.of(context).primaryColor,
-      endRadius: 75.0,
+      endRadius: 50.0,
       duration: const Duration(milliseconds: 2000),
       repeatPauseDuration: const Duration(milliseconds: 100),
       repeat: true,
