@@ -10,9 +10,18 @@ import 'package:sound_stream/sound_stream.dart';
 import 'package:speaking_bot_app/states/maneuver_state.dart';
 import 'package:wakelock/wakelock.dart';
 
+import 'dart:typed_data';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
 // import Dialogflow
 import 'package:dialogflow_grpc/dialogflow_grpc.dart';
 import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2beta1/session.pb.dart';
+
+const int _tSampleRate = 44100;
+const int _tNumChannels = 1;
+const _start = 'assets/sounds/start_sound.wav';
+const _stop = 'assets/sounds/stop_sound.wav';
 
 class MicroDialogflowInput extends StatefulWidget {
   const MicroDialogflowInput({Key? key}) : super(key: key);
@@ -32,17 +41,58 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
   // DialogflowGrpcV2Beta1 class instance
   late DialogflowGrpcV2Beta1 dialogflow;
 
+  // sound
+  FlutterSoundPlayer? _mPlayer = FlutterSoundPlayer();
+  late bool _mPlayerIsInited;
+  Uint8List? startData;
+  Uint8List? stopData;
+  bool busy = false;
+
+  Future<Uint8List> getAssetData(String path) async {
+    var asset = await rootBundle.load(path);
+    return asset.buffer.asUint8List();
+  }
+
+  Future<void> init() async {
+    await _mPlayer!.openPlayer();
+    startData = FlutterSoundHelper().waveToPCMBuffer(
+      inputBuffer: await getAssetData(_start),
+    );
+    stopData = FlutterSoundHelper().waveToPCMBuffer(
+      inputBuffer: await getAssetData(_stop),
+    );
+    await _mPlayer!.startPlayerFromStream(
+      codec: Codec.pcm16,
+      numChannels: _tNumChannels,
+      sampleRate: _tSampleRate,
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     initPlugin();
+    init().then((value) => setState(() {
+          _mPlayerIsInited = true;
+        }));
   }
 
   @override
   void dispose() {
     _recorderStatus.cancel();
     _audioStreamSubscription.cancel();
+
+    _mPlayer!.stopPlayer();
+    _mPlayer!.closePlayer();
+    _mPlayer = null;
     super.dispose();
+  }
+
+  void play(Uint8List? data) async {
+    if (!busy && _mPlayerIsInited) {
+      busy = true;
+      await _mPlayer!.feedFromStream(data!).then((value) => busy = false);
+    }
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -66,6 +116,7 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
 
   void stopStream() async {
     Wakelock.disable();
+
     await _recorder.stop();
     await _audioStreamSubscription.cancel();
     await _audioStream.close();
@@ -87,6 +138,7 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
 
   void handleStream() async {
     Wakelock.enable();
+
     _recorder.start();
 
     _audioStream = BehaviorSubject<List<int>>();
@@ -149,9 +201,11 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
       if (dataBecker.queryResult.fulfillmentText.contains("ST")) {
         Provider.of<ManeuverState>(context, listen: false)
             .setManeuver(intId, context, true);
+        play(startData);
       } else if (dataBecker.queryResult.fulfillmentText.contains("SP")) {
         Provider.of<ManeuverState>(context, listen: false)
             .setManeuver(intId, context, false);
+        play(stopData);
       }
     }, onError: (e) {
       //print(e);

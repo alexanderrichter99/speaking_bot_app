@@ -32,6 +32,7 @@ dependencies:
   rxdart: ^0.24.1
   avatar_glow: ^1.2.0
   wakelock: ^0.6.1+2
+  flutter_sound: ^9.2.13
   flutter:
     sdk: flutter
 
@@ -101,4 +102,6 @@ flutter:
     - assets/images/car.jpg
     - assets/images/information.jpg
     - assets/images/presentation.jpg
+    - assets/sounds/start_sound.wav
+    - assets/sounds/stop_sound.wav
     - assets/credentials.json
