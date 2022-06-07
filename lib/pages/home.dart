@@ -76,7 +76,17 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: MicroDialogflowInput(),
       bottomNavigationBar: BottomAppBar(
-        child: Container(height: 50.0),
+        child: SizedBox(
+            height: 75.0,
+            child: Padding(
+              child: Text(
+                // TODO Transcript
+                "Starte Kickdown",
+                style: const TextStyle(fontSize: 20, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              padding: EdgeInsets.only(top: 35.0),
+            )),
         color: Colors.blue.shade400,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

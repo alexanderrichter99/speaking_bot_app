@@ -31,6 +31,7 @@ class MicroDialogflowInput extends StatefulWidget {
 }
 
 class _MicroDialogflowState extends State<MicroDialogflowInput> {
+  final TextEditingController _textController = TextEditingController();
   bool _isRecording = false;
 
   RecorderStream _recorder = RecorderStream();
@@ -173,6 +174,11 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
     responseStream.listen((data) async {
       // jedes einzelne Wort
 
+      // prüfe dass Satz vollständig is, falls nicht beende (return)
+      if (data.recognitionResult.isFinal == false) {
+        return;
+      }
+
       DetectIntentResponse dataBecker = await dialogflow.detectIntent(
           data.recognitionResult.transcript, 'de-DE');
 
@@ -180,7 +186,8 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
         return;
       }
 
-      print('transcript: ' + data.recognitionResult.transcript);
+      String transcript = data.recognitionResult.transcript;
+      print('transcript: ' + transcript);
       print('fulfillmentText: ' + dataBecker.queryResult.fulfillmentText);
 
       if (dataBecker.queryResult.fulfillmentText.length == 1) {
@@ -206,6 +213,11 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
         Provider.of<ManeuverState>(context, listen: false)
             .setManeuver(intId, context, false);
         play(stopData);
+      }
+
+      // transcript printen
+      if (transcript.isNotEmpty) {
+        _textController.text = transcript;
       }
     }, onError: (e) {
       //print(e);
