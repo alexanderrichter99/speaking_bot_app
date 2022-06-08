@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:speaking_bot_app/states/maneuver_state.dart';
+import 'package:speaking_bot_app/states/transcript_state.dart';
 import 'package:speaking_bot_app/widgets/micro_dialogflow_input.dart';
 import 'package:speaking_bot_app/widgets/service_widget.dart';
 import 'package:speaking_bot_app/widgets/toggle_button_eile.dart';
@@ -24,8 +25,8 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white, //change your color here
         ),
         title: Consumer<ManeuverState>(
-          builder: (context, value, child) {
-            var additionalText = value.ongoing
+          builder: (context, maneuverState, child) {
+            var additionalText = maneuverState.ongoing
                 ? " - ${ServiceWidget.of(context)?.coreService.eile ? "" : "nicht "}in Eile"
                 : "";
             return Text("Use Cases" + additionalText,
@@ -79,11 +80,14 @@ class _HomePageState extends State<HomePage> {
         child: SizedBox(
             height: 75.0,
             child: Padding(
-              child: Text(
-                // TODO Transcript
-                "Starte Kickdown",
-                style: const TextStyle(fontSize: 20, color: Colors.white),
-                textAlign: TextAlign.center,
+              child: Consumer<TranscriptState>(
+                builder: (context, transcriptState, child) {
+                  return Text(
+                    "${transcriptState.transcript}",
+                    style: const TextStyle(fontSize: 15, color: Colors.white),
+                    textAlign: TextAlign.center,
+                  );
+                },
               ),
               padding: EdgeInsets.only(top: 35.0),
             )),

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sound_stream/sound_stream.dart';
 import 'package:speaking_bot_app/states/maneuver_state.dart';
+import 'package:speaking_bot_app/states/transcript_state.dart';
 import 'package:wakelock/wakelock.dart';
 
 import 'dart:typed_data';
@@ -31,8 +32,8 @@ class MicroDialogflowInput extends StatefulWidget {
 }
 
 class _MicroDialogflowState extends State<MicroDialogflowInput> {
-  final TextEditingController _textController = TextEditingController();
   bool _isRecording = false;
+  String _transcript = "";
 
   RecorderStream _recorder = RecorderStream();
   late StreamSubscription _recorderStatus;
@@ -186,8 +187,12 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
         return;
       }
 
-      String transcript = data.recognitionResult.transcript;
-      print('transcript: ' + transcript);
+      _transcript = data.recognitionResult.transcript;
+
+      Provider.of<TranscriptState>(context, listen: false)
+          .setTranscript(_transcript, context);
+
+      print('transcript: ' + _transcript);
       print('fulfillmentText: ' + dataBecker.queryResult.fulfillmentText);
 
       if (dataBecker.queryResult.fulfillmentText.length == 1) {
@@ -213,11 +218,6 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
         Provider.of<ManeuverState>(context, listen: false)
             .setManeuver(intId, context, false);
         play(stopData);
-      }
-
-      // transcript printen
-      if (transcript.isNotEmpty) {
-        _textController.text = transcript;
       }
     }, onError: (e) {
       //print(e);

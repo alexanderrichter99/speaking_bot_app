@@ -5,6 +5,7 @@ import 'package:speaking_bot_app/core/routes/routes.dart';
 import 'package:speaking_bot_app/states/core_bluetooth_state.dart';
 import 'package:speaking_bot_app/states/core_service.dart';
 import 'package:speaking_bot_app/states/maneuver_state.dart';
+import 'package:speaking_bot_app/states/transcript_state.dart';
 import 'package:speaking_bot_app/widgets/service_widget.dart';
 
 void main() {
@@ -29,6 +30,8 @@ class MyApp extends StatelessWidget {
               create: (context) => CoreBluetoothState()),
           ChangeNotifierProvider<ManeuverState>(
               create: (context) => ManeuverState()),
+          ChangeNotifierProvider<TranscriptState>(
+              create: (context) => TranscriptState()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
