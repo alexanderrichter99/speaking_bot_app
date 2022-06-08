@@ -175,6 +175,12 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
     responseStream.listen((data) async {
       // jedes einzelne Wort
 
+      _transcript = data.recognitionResult.transcript;
+
+      // transcript weitergeben an state
+      Provider.of<TranscriptState>(context, listen: false)
+          .setTranscript(_transcript);
+
       // prüfe dass Satz vollständig is, falls nicht beende (return)
       if (data.recognitionResult.isFinal == false) {
         return;
@@ -186,11 +192,6 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
       if (dataBecker.queryResult.fulfillmentText.contains("fallback")) {
         return;
       }
-
-      _transcript = data.recognitionResult.transcript;
-
-      Provider.of<TranscriptState>(context, listen: false)
-          .setTranscript(_transcript, context);
 
       print('transcript: ' + _transcript);
       print('fulfillmentText: ' + dataBecker.queryResult.fulfillmentText);
@@ -205,18 +206,20 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
         return;
       }
 
-      String id = dataBecker.queryResult.fulfillmentText
-          .substring(4, dataBecker.queryResult.fulfillmentText.length);
-      int intId = int.parse(id);
-
       // wenn ST dann werden Eile Buttons deaktiviert, falls SP dann wieder aktiviert
       if (dataBecker.queryResult.fulfillmentText.contains("ST")) {
+        String id = dataBecker.queryResult.fulfillmentText
+            .substring(4, dataBecker.queryResult.fulfillmentText.length);
+        int intId = int.parse(id);
         Provider.of<ManeuverState>(context, listen: false)
             .setManeuver(intId, context, true);
         play(startData);
       } else if (dataBecker.queryResult.fulfillmentText.contains("SP")) {
+        int searchIndex =
+            Provider.of<ManeuverState>(context, listen: false).searchIndex();
+
         Provider.of<ManeuverState>(context, listen: false)
-            .setManeuver(intId, context, false);
+            .setManeuver(searchIndex, context, false);
         play(stopData);
       }
     }, onError: (e) {

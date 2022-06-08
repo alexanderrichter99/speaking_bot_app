@@ -89,7 +89,8 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
-              padding: EdgeInsets.only(top: 35.0),
+              padding: EdgeInsets.only(
+                  top: 32.0, bottom: 2.0, left: 2.0, right: 2.0),
             )),
         color: Colors.blue.shade400,
       ),

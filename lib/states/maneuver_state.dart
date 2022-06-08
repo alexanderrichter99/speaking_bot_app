@@ -64,7 +64,6 @@ class ManeuverState extends ChangeNotifier {
     notifyListeners();
   }
 
-//ongoing weg und zu void gemacht
   void setEile(int newIndex, BuildContext context) {
     if (ongoing) {
       return;
@@ -80,5 +79,15 @@ class ManeuverState extends ChangeNotifier {
     ServiceWidget.of(context)?.coreService.setEile =
         newIndex == 0 ? true : false;
     notifyListeners();
+  }
+
+  int searchIndex() {
+    int index = 0;
+    for (int i = 0; i < isSelected.length; i++) {
+      if (isSelected[i] == true) {
+        index = i;
+      }
+    }
+    return index;
   }
 }

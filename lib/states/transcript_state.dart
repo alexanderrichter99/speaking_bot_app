@@ -5,7 +5,7 @@ class TranscriptState extends ChangeNotifier {
 
   get transcript => _transcript;
 
-  void setTranscript(String newTranscript, BuildContext context) {
+  void setTranscript(String newTranscript) {
     _transcript = newTranscript;
     notifyListeners();
   }
