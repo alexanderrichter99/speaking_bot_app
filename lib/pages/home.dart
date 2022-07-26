@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:highlight_text/highlight_text.dart';
+import 'package:speaking_bot_app/model/highlights.dart';
 import 'package:provider/provider.dart';
 import 'package:speaking_bot_app/states/maneuver_state.dart';
 import 'package:speaking_bot_app/states/transcript_state.dart';
@@ -69,6 +71,25 @@ class _HomePageState extends State<HomePage> {
                   ToggleButtonEile(),
                   SizedBox(height: 16),
                   ToggleButtonManeuver(),
+                  // SizedBox(
+                  //     height: 75.0,
+                  //     child: Padding(
+                  //       child: Consumer<TranscriptState>(
+                  //         builder: (context, transcriptState, child) {
+                  //           return TextHighlight(
+                  //             textAlign: TextAlign.center,
+                  //             text: "${transcriptState.transcript}",
+                  //             words: highlightList,
+                  //             textStyle: const TextStyle(
+                  //                 fontSize: 15,
+                  //                 color: Colors.white,
+                  //                 fontWeight: FontWeight.w400),
+                  //           );
+                  //         },
+                  //       ),
+                  //       padding: EdgeInsets.only(
+                  //           top: 32.0, bottom: 2.0, left: 2.0, right: 2.0),
+                  //     )),
                 ],
               ),
             ),
@@ -82,10 +103,14 @@ class _HomePageState extends State<HomePage> {
             child: Padding(
               child: Consumer<TranscriptState>(
                 builder: (context, transcriptState, child) {
-                  return Text(
-                    "${transcriptState.transcript}",
-                    style: const TextStyle(fontSize: 15, color: Colors.white),
+                  return TextHighlight(
                     textAlign: TextAlign.center,
+                    text: "${transcriptState.transcript}",
+                    words: highlightList,
+                    textStyle: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
                   );
                 },
               ),

@@ -23,6 +23,7 @@ const int _tSampleRate = 44100;
 const int _tNumChannels = 1;
 const _start = 'assets/sounds/start_sound.wav';
 const _stop = 'assets/sounds/stop_sound.wav';
+const _eile = 'assets/sounds/eile_sound.wav';
 
 class MicroDialogflowInput extends StatefulWidget {
   const MicroDialogflowInput({Key? key}) : super(key: key);
@@ -48,6 +49,7 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
   late bool _mPlayerIsInited;
   Uint8List? startData;
   Uint8List? stopData;
+  Uint8List? eileData;
   bool busy = false;
 
   Future<Uint8List> getAssetData(String path) async {
@@ -62,6 +64,9 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
     );
     stopData = FlutterSoundHelper().waveToPCMBuffer(
       inputBuffer: await getAssetData(_stop),
+    );
+    eileData = FlutterSoundHelper().waveToPCMBuffer(
+      inputBuffer: await getAssetData(_eile),
     );
     await _mPlayer!.startPlayerFromStream(
       codec: Codec.pcm16,
@@ -153,10 +158,12 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
     // Create an audio InputConfig
     var biasList = SpeechContextV2Beta1(phrases: [
       'Auffahren',
+      'Anfahren',
       'Manöver',
       'Kickdown',
       'Spurwechseln',
-      'Spurpendeln'
+      'Spurpendeln',
+      'Speedlimittreue'
     ], boost: 20.0);
 
     // See: https://cloud.google.com/dialogflow/es/docs/reference/rpc/google.cloud.dialogflow.v2#google.cloud.dialogflow.v2.InputAudioConfig
@@ -203,6 +210,7 @@ class _MicroDialogflowState extends State<MicroDialogflowInput> {
         int intEile = int.parse(eile);
         Provider.of<ManeuverState>(context, listen: false)
             .setEile(intEile, context);
+        play(eileData);
         return;
       }
 
